@@ -318,6 +318,10 @@
             border-radius: 5px;
             font-size: 13px;
         }
+
+        .cursor {
+            cursor: pointer;
+        }
     </style>
 </head>
 
@@ -346,9 +350,9 @@
                 <img src="img/user.svg" alt="">
                 <h1>AulaCerta</h1>
             </div>
-            <div class="topicos">
+            <div class="topicos cursor" onclick="dashboard()">
                 <div class="topico">
-                    <img src="img/house.svg" alt="">
+                    <img src="img/house.svg" alt="" >
                     <h2>Dashboard</h2>
                 </div>
                 <div class="topico destaque">
@@ -373,7 +377,7 @@
                     <img src="img/config.svg" alt="">
                     <h2>Configurações</h2>
                 </div>
-                <div class="acao">
+                <div class="acao cursor" onclick="sair()">
                     <img src="img/sair.svg" alt="">
                     <h2>Sair</h2>
                 </div>
@@ -497,6 +501,15 @@
         </div>
         </div>
     </section>
+    <script>
+        function dashboard() {
+            window.location.href = "dashboard.php";
+        }
+
+        function sair() {
+            window.location.href = "login.php";
+        }
+    </script>
 </body>
 
 </html>

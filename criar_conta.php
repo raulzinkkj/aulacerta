@@ -80,12 +80,6 @@
             margin-bottom: 20px;
         }
 
-        .subtitulo {
-            font-size: 13px;
-            color: #888;
-            margin-bottom: 22px;
-        }
-
         input[type="email"],
         input[type="password"] {
             width: 100%;
@@ -129,12 +123,6 @@
             font-weight: 600;
             margin-bottom: 14px;
         }
-
-        .esqueceu {
-            text-align: center;
-            margin-bottom: 16px;
-        }
-
         a {
             color: #2563EB;
             text-decoration: none;
@@ -162,7 +150,7 @@
 </head>
 
 <body>
-    <form action="api/verifica_login.php" method="post">
+    <form action="api/gravar_usuario.php" method="post">
         <div class="logo">
             <div class="loguinho">
                 <img src="img/user.svg" alt="">
@@ -173,8 +161,7 @@
 
         <div class="linha">
             <div class="titulo">
-                <h2>Entrar na sua conta</h2>
-                <p class="subtitulo">Acesse para encontrar ou oferecer aulas particulares</p>
+                <h2>Crie a sua conta</h2>
             </div>
 
             <label for="email_usuario">E-mail</label>
@@ -188,13 +175,7 @@
                 Lembrar-me
             </label>
 
-            <button type="submit">Entrar</button>
-
-            <div class="esqueceu">
-                <a href="esqueci_senha.php">Esqueceu sua senha?</a>
-            </div>
-
-            <p class="pe">Não tem uma conta? <a href="criar_conta.php">Cadastre-se</a></p>
+            <button type="submit">Criar</button>
         </div>
     </form>
 </body>

@@ -330,6 +330,10 @@
             padding: 2px;
             border-radius: 6px;
         }
+
+        .cursor {
+            cursor: pointer;
+        }
     </style>
 </head>
 
@@ -363,7 +367,7 @@
                     <img src="img/house.svg" alt="">
                     <h2>Dashboard</h2>
                 </div>
-                <div class="topico">
+                <div class="topico cursor" onclick="pesquisar()">
                     <img src="img/search.svg" alt="">
                     <h2>Buscar instrutores</h2>
                 </div>
@@ -385,7 +389,7 @@
                     <img src="img/config.svg" alt="">
                     <h2>Configurações</h2>
                 </div>
-                <div class="acao">
+                <div class="acao cursor" onclick="sair()">
                     <img src="img/sair.svg" alt="">
                     <h2>Sair</h2>
                 </div>
@@ -500,8 +504,17 @@
 
             </div>
         </div>
-
     </section>
+
+    <script>
+        function pesquisar() {
+            window.location.href = "pesquisar.php";
+        }
+
+        function sair() {
+            window.location.href = "login.php";
+        }
+    </script>
 </body>
 
 </html>
