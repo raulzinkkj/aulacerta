@@ -5,6 +5,14 @@ if (!isset($_SESSION['id_usuario'])) {
     header("Location: index.php");
     exit;
 }
+include 'conexao/conexao.php';
+
+$sql = "SELECT * FROM usuario WHERE id_usuario = :id_usuario";
+$stmt = $conexao->prepare($sql);
+$stmt->bindValue(":id_usuario", $_SESSION['id_usuario']);
+$stmt->execute();
+
+$usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 ?>
 
 
@@ -356,7 +364,7 @@ if (!isset($_SESSION['id_usuario'])) {
             </div>
             <div class="perfil">
                 <img src="img/bell.svg" alt="" class="sino">
-                <img src="img/raul.jpeg" alt="" class="pessoa">
+                <img src="<?php echo $usuario['foto_usuario']; ?>" alt="" class="pessoa">
                 <div class="descricao">
                     <strong><?php echo $_SESSION['nome_usuario']; ?></strong>
                     <span>Aluno</span>

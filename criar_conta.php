@@ -98,7 +98,7 @@
             font-weight: bold;
         }
 
-        .instrutor {
+        .cargo_usuario {
             display: flex;
             align-items: center;
             gap: 8px;
@@ -179,8 +179,8 @@
             <input type="file" name="foto_usuario" id="" >
             
 
-            <label class="instrutor" for="instrutor">
-                <input type="checkbox" name="instrutor" value="Instrutor">
+            <label class="cargo_usuario" for="cargo_usuario">
+                <input type="checkbox" name="cargo_usuario" value="Instrutor">
                 Sou Instrutor
             </label>
 
