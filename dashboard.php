@@ -1,3 +1,13 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['id_usuario'])) {
+    header("Location: index.php");
+    exit;
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -348,7 +358,7 @@
                 <img src="img/bell.svg" alt="" class="sino">
                 <img src="img/raul.jpeg" alt="" class="pessoa">
                 <div class="descricao">
-                    <strong>Raul Karvat</strong>
+                    <strong><?php echo $_SESSION['nome_usuario']; ?></strong>
                     <span>Aluno</span>
                 </div>
                 <div class="down">
@@ -512,7 +522,7 @@
         }
 
         function sair() {
-            window.location.href = "login.php";
+            window.location.href = "index.php";
         }
     </script>
 </body>

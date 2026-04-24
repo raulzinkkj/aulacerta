@@ -81,7 +81,9 @@
         }
 
         input[type="email"],
-        input[type="password"] {
+        input[type="password"],
+        input[type="file"],
+        input[type="text"] {
             width: 100%;
             padding: 10px 12px 10px 34px;
             border: 1px solid #dcdcdc;
@@ -96,7 +98,7 @@
             font-weight: bold;
         }
 
-        .lembrar {
+        .instrutor {
             display: flex;
             align-items: center;
             gap: 8px;
@@ -150,7 +152,7 @@
 </head>
 
 <body>
-    <form action="api/gravar_usuario.php" method="post">
+    <form action="api/gravar_usuario.php" method="post" enctype="multipart/form-data">
         <div class="logo">
             <div class="loguinho">
                 <img src="img/user.svg" alt="">
@@ -164,15 +166,22 @@
                 <h2>Crie a sua conta</h2>
             </div>
 
+            <label for="nome_usuario">Nome</label>
+            <input type="text" name="nome_usuario" id="" placeholder="Digite seu nome">
+
             <label for="email_usuario">E-mail</label>
             <input type="email" name="email_usuario" id="" placeholder="✉ seu@gmail.com">
 
             <label for="senha_usuario">Senha</label>
             <input type="password" name="senha_usuario" id="" placeholder="Digite sua senha">
 
-            <label class="lembrar" for="lembrar">
-                <input type="checkbox" name="lembrar" id="lembrar">
-                Lembrar-me
+            <label for="foto_usuario">Envie sua Foto</label>
+            <input type="file" name="foto_usuario" id="" >
+            
+
+            <label class="instrutor" for="instrutor">
+                <input type="checkbox" name="instrutor" value="Instrutor">
+                Sou Instrutor
             </label>
 
             <button type="submit">Criar</button>
