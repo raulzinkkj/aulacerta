@@ -364,7 +364,7 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
             </div>
             <div class="perfil">
                 <img src="img/bell.svg" alt="" class="sino">
-                <img src="<?php echo $usuario['foto_usuario']; ?>" alt="" class="pessoa">
+                <img src="<?php echo $usuario['foto_usuario']; ?>" alt="" class="pessoa" onclick="perfil()">
                 <div class="descricao">
                     <strong><?php echo $_SESSION['nome_usuario']; ?></strong>
                     <span><?php echo $usuario['cargo_usuario']; ?></span>
@@ -419,7 +419,7 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
                 <h1>Bem-vindo,
                     <?php
                     $nomeCompleto = $_SESSION['nome_usuario'];
-                    
+
                     $partes = explode(" ", $nomeCompleto);
 
                     $primeiroNome = $partes[0];
@@ -473,93 +473,33 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
             <div class="cards_instrutores">
                 <?php
-                    include "conexao/conexao.php";
+                include "conexao/conexao.php";
 
-                    $instrutores = "SELECT * FROM usuario WHERE cargo_usuario = 'Instrutor'";
-                    $stmt = $conexao->prepare($instrutores);
-                    $stmt->execute();
+                $instrutores = "SELECT * FROM usuario WHERE cargo_usuario = 'Instrutor'";
+                $stmt = $conexao->prepare($instrutores);
+                $stmt->execute();
 
-                    while ($linha = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                        echo "<div class='card_instrutor'>";
-                            echo "<div class='card_topo'>";
-                                echo "<img src='{$linha['foto_usuario']}' class='foto_instrutor'>";
-                                echo "<div class='info_instrutor'>";
-                                    echo "<strong>{$linha['nome_usuario']}</strong>";
-                                    echo "<span>⭐ 4.9 (124)</span>";
-                                    echo "<span class='credenciado'>🚗 Instrutor credenciado</span>";
-                                echo "</div>";
-                            echo "</div>";
-                            echo "<p>Instrutor com 10 anos de experiência. Especialista em primeira habilitação.</p>";
-                            echo "<span>Manual e Automático</span>";
-                            echo "<span>📍 Zona Sul - SP</span>";
-                            echo "<div class='card_rodape'>";
-                                echo "<strong>R$ 80,00/h</strong>";
-                                echo "<button>Ver Perfil</button>";
-                            echo "</div>";
-                            echo "<img src='img/hearth2.svg' class='favorito'>";
-                        echo "</div>";
-                        }
+                while ($linha = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                    echo "<div class='card_instrutor'>";
+                    echo "<div class='card_topo'>";
+                    echo "<img src='{$linha['foto_usuario']}' class='foto_instrutor'>";
+                    echo "<div class='info_instrutor'>";
+                    echo "<strong>{$linha['nome_usuario']}</strong>";
+                    echo "<span>⭐ 4.9 (124)</span>";
+                    echo "<span class='credenciado'>🚗 Instrutor credenciado</span>";
+                    echo "</div>";
+                    echo "</div>";
+                    echo "<p>Instrutor com 10 anos de experiência. Especialista em primeira habilitação.</p>";
+                    echo "<span>Manual e Automático</span>";
+                    echo "<span>📍 Zona Sul - SP</span>";
+                    echo "<div class='card_rodape'>";
+                    echo "<strong>R$ 80,00/h</strong>";
+                    echo "<button>Ver Perfil</button>";
+                    echo "</div>";
+                    echo "<img src='img/hearth2.svg' class='favorito'>";
+                    echo "</div>";
+                }
                 ?>
-
-
-
-                <div class="card_instrutor">
-                    <div class="card_topo">
-                        <img src="img/carlos.jpg" alt="" class="foto_instrutor">
-                        <div class="info_instrutor">
-                            <strong>Carlos Mendes</strong>
-                            <span>⭐ 4.9 (124)</span>
-                            <span class="credenciado">🚗 Instrutor credenciado</span>
-                        </div>
-                    </div>
-                    <p>Instrutor com 10 anos de experiência. Especialista em primeira habilitação.</p>
-                    <span>Manual e Automático</span>
-                    <span>📍 Zona Sul - SP</span>
-                    <div class="card_rodape">
-                        <strong>R$ 80,00/h</strong>
-                        <button>Ver Perfil</button>
-                    </div>
-                    <img src="img/hearth2.svg" alt="" class="favorito">
-                </div>
-
-                <div class="card_instrutor">
-                    <div class="card_topo">
-                        <img src="img/ana.jpg" alt="" class="foto_instrutor">
-                        <div class="info_instrutor">
-                            <strong>Ana Paula Silva</strong>
-                            <span>⭐ 4.8 (96)</span>
-                            <span class="credenciado">🚗 Instrutora credenciada</span>
-                        </div>
-                    </div>
-                    <p>Paciência e didática para alunos iniciantes. Foco em direção defensiva.</p>
-                    <span>Automático</span>
-                    <span>📍 Centro - SP</span>
-                    <div class="card_rodape">
-                        <strong>R$ 75,00/h</strong>
-                        <button>Ver Perfil</button>
-                    </div>
-                    <img src="img/hearth2.svg" alt="" class="favorito">
-                </div>
-
-                <div class="card_instrutor">
-                    <div class="card_topo">
-                        <img src="img/roberto.jpg" alt="" class="foto_instrutor">
-                        <div class="info_instrutor">
-                            <strong>Roberto Costa</strong>
-                            <span>⭐ 4.9 (156)</span>
-                            <span class="credenciado">🚗 Instrutor credenciado</span>
-                        </div>
-                    </div>
-                    <p>Especialista em reciclagem e aulas para habilitados. 15 anos de experiência.</p>
-                    <span>Manual e Automático</span>
-                    <span>📍 Zona Oeste - SP</span>
-                    <div class="card_rodape">
-                        <strong>R$ 85,00/h</strong>
-                        <button>Ver Perfil</button>
-                    </div>
-                    <img src="img/hearth2.svg" alt="" class="favorito">
-                </div>
-
             </div>
         </div>
     </section>
@@ -571,6 +511,10 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
         function sair() {
             window.location.href = "index.php";
+        }
+
+        function perfil() {
+            window.location.href = "meuperfil.php";
         }
     </script>
 </body>
