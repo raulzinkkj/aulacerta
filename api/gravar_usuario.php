@@ -2,7 +2,7 @@
 <?php
 include '../conexao/conexao.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nome_usuario = $_POST['nome_usuario'];
     $email_usuario = $_POST['email_usuario'];
     $senha_usuario = $_POST['senha_usuario'];
@@ -33,13 +33,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
         }
 
         $novoNome = uniqid() . "." . $extensao;
-        $caminho = "uploads/" . $novoNome;
+        $pasta = "../uploads/";
+        $caminhoFisico = $pasta . $novoNome;
+        $caminhoBanco = "uploads/" . $novoNome;
 
-        if (move_uploaded_file($arquivo ['tmp_name'], $caminho)) {
-            $fotoCaminho = $caminho;
+        if (move_uploaded_file($arquivo['tmp_name'], $caminhoFisico)) {
+            $fotoCaminho = $caminhoBanco;
         } else {
             die("Erro ao enviar imagem");
         }
+    }
+    
+    if (empty($cargo_usuario)) {
+        $cargo_usuario = 'Aluno';
     }
 
     $sql = "INSERT INTO usuario (email_usuario, senha_usuario, foto_usuario, nome_usuario, cargo_usuario) 

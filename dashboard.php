@@ -344,7 +344,7 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
         }
 
         .destaque {
-            background:rgb(15, 98, 216);
+            background: rgb(15, 98, 216);
             padding: 2px;
             border-radius: 6px;
         }
@@ -416,10 +416,20 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
         <div class="bemvindo">
             <div class="bemvindo2">
-                <h1>Bem-vindo, Raul! 👋</h1>
+                <h1>Bem-vindo,
+                    <?php
+                    $nomeCompleto = $_SESSION['nome_usuario'];
+                    
+                    $partes = explode(" ", $nomeCompleto);
+
+                    $primeiroNome = $partes[0];
+
+                    echo $primeiroNome;
+                    ?>
+                    🖐️</h1>
                 <p>Encontre o instrutor ideal para suas aulas particulares.</p>
             </div>
-            <button class="botao">Buscar Instrutores</button>
+            <button class="botao" onclick="pesquisar()">Buscar Instrutores</button>
         </div>
 
         <div class="resumo">
