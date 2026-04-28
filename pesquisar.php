@@ -356,7 +356,7 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
                 <img src="<?php echo $usuario['foto_usuario']; ?>" alt="" class="pessoa">
                 <div class="descricao">
                     <strong><?php echo $_SESSION['nome_usuario']; ?></strong>
-                    <span>Aluno</span>
+                    <span><?php echo $usuario['cargo_usuario']; ?></span>
                 </div>
                 <div class="down">
                     <img src="img/down.svg" alt="">

@@ -367,7 +367,7 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
                 <img src="<?php echo $usuario['foto_usuario']; ?>" alt="" class="pessoa">
                 <div class="descricao">
                     <strong><?php echo $_SESSION['nome_usuario']; ?></strong>
-                    <span>Aluno</span>
+                    <span><?php echo $usuario['cargo_usuario']; ?></span>
                 </div>
                 <div class="down">
                     <img src="img/down.svg" alt="">
@@ -472,6 +472,36 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
             </div>
 
             <div class="cards_instrutores">
+                <?php
+                    include "conexao/conexao.php";
+
+                    $instrutores = "SELECT * FROM usuario WHERE cargo_usuario = 'Instrutor'";
+                    $stmt = $conexao->prepare($instrutores);
+                    $stmt->execute();
+
+                    while ($linha = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                        echo "<div class='card_instrutor'>";
+                            echo "<div class='card_topo'>";
+                                echo "<img src='{$linha['foto_usuario']}' class='foto_instrutor'>";
+                                echo "<div class='info_instrutor'>";
+                                    echo "<strong>{$linha['nome_usuario']}</strong>";
+                                    echo "<span>⭐ 4.9 (124)</span>";
+                                    echo "<span class='credenciado'>🚗 Instrutor credenciado</span>";
+                                echo "</div>";
+                            echo "</div>";
+                            echo "<p>Instrutor com 10 anos de experiência. Especialista em primeira habilitação.</p>";
+                            echo "<span>Manual e Automático</span>";
+                            echo "<span>📍 Zona Sul - SP</span>";
+                            echo "<div class='card_rodape'>";
+                                echo "<strong>R$ 80,00/h</strong>";
+                                echo "<button>Ver Perfil</button>";
+                            echo "</div>";
+                            echo "<img src='img/hearth2.svg' class='favorito'>";
+                        echo "</div>";
+                        }
+                ?>
+
+
 
                 <div class="card_instrutor">
                     <div class="card_topo">
