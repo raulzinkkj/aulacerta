@@ -18,7 +18,7 @@ $sql_estados = "SELECT * FROM estados";
 $stmt_estados = $conexao->prepare($sql_estados);
 $stmt_estados->execute();
 
-$sql_cidades = "SELECT * FROM cidades";
+$sql_cidades = "SELECT * FROM municipios";
 $stmt_cidades = $conexao->prepare($sql_cidades);
 $stmt_cidades->execute();
 
@@ -430,16 +430,17 @@ $stmt_cidades->execute();
 
                 <label for="estado">Estado:</label>
                 <select name="estado" id="estado">
+                    <option value="">Selecione um estado</option>
                     <?php
                     while ($estados = $stmt_estados->fetch(PDO::FETCH_ASSOC)) {
-                        echo "<option value='{$estados['id_estado']}'>{$estados['nome_estado']}</option>";
+                        echo "<option value='{$estados['uf_estado']}'>{$estados['nome_estado']}</option>";
                     }
                     ?>
                 </select>
 
                 <label for="cidade">Cidade:</label>
                 <select name="cidade" id="cidade">
-
+                    <option value="">Selecione um municipio</option>
                 </select>
 
             </form>
@@ -457,14 +458,14 @@ $stmt_cidades->execute();
         document.getElementById("estado").addEventListener("change", function() {
             let estadoId = this.value;
 
-            fetch("buscar_cidades.php?estado=" + estadoId)
+            fetch("api/buscar_cidades.php?estado=" + estadoId)
                 .then(res => res.json())
                 .then(cidades => {
                     let cidadeSelect = document.getElementById("cidade");
                     cidadeSelect.innerHTML = '';
 
                     cidades.forEach(c => {
-                        let option = new Option(c.nome_cidade, c.id_cidade);
+                        let option = new Option(c.nome_municipio, c.id_municipio);
                         cidadeSelect.add(option);
                     });
                 });
