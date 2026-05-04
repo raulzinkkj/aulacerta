@@ -179,12 +179,6 @@ $stmt_cidades->execute();
             cursor: pointer;
         }
 
-        .destaque {
-            background: rgb(15, 98, 216);
-            padding: 2px;
-            border-radius: 6px;
-        }
-
         .pagina {
             padding: 0 10px;
             height: 100vh;
@@ -350,6 +344,67 @@ $stmt_cidades->execute();
         .cursor {
             cursor: pointer;
         }
+
+        form {
+            display: flex;
+            justify-content: center;
+            width: 400px;
+            flex-direction: column;
+            padding: 20px;
+            border-radius: 8px;
+            border: solid 1px gray;
+        }
+
+        .pagina {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            height: 35px;
+            border-radius: 5px;
+            border: 1px solid #dcdcdc;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        select:focus,
+        textarea:focus {
+            border: solid 1px black;
+        }
+
+        label {
+            padding: 4px;
+        }
+
+        textarea {
+            resize: none;
+            width: 100%;
+            border-radius: 5px;
+            border: 1px solid #dcdcdc;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #2563EB;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 14px;
+            margin-top: 20px;
+        }
     </style>
 </head>
 
@@ -383,7 +438,7 @@ $stmt_cidades->execute();
                     <img src="img/house.svg" alt="">
                     <h2>Dashboard</h2>
                 </div>
-                <div class="topico destaque">
+                <div class="topico">
                     <img src="img/search.svg" alt="">
                     <h2>Buscar instrutores</h2>
                 </div>
@@ -418,8 +473,9 @@ $stmt_cidades->execute();
             <h1>Meu Perfil</h1>
 
             <form action="api/gravar_perfil.php" method="post">
+
                 <label for="descricao">Sobre Mim:</label>
-                <textarea name="descricao" id="" cols="30" rows="10"></textarea>
+                <textarea name="descricao" id="" cols="30" rows="5"></textarea>
 
                 <label for="cambio">Câmbio:</label>
                 <select name="cambio" id="">
@@ -442,6 +498,18 @@ $stmt_cidades->execute();
                 <select name="cidade" id="cidade">
                     <option value="">Selecione um municipio</option>
                 </select>
+
+                <label for="valor">Valor da hora:</label>
+                <input type="text" name="valor" id="">
+
+                <label for="dispo">Disponibilidade</label>
+                <select name="dispo" id="">
+                    <option value="Manhã">Manhã</option>
+                    <option value="Tarde">Tarde</option>
+                    <option value="Noite">Noite</option>
+                </select>
+
+                <button type="submit">Salvar</button>
 
             </form>
         </div>
