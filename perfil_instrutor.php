@@ -381,7 +381,7 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
                 <h1>AulaCerta</h1>
             </div>
             <div class="topicos">
-                <div class="topico">
+                <div class="topico destaque" onclick="dashboard()">
                     <img src="img/house.svg" alt="">
                     <h2>Dashboard</h2>
                 </div>
@@ -458,12 +458,12 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
                     echo "<span class='credenciado'>🚗 Instrutor credenciado</span>";
                     echo "</div>";
                     echo "</div>";
-                    echo "<p>{$linha['descricao']}</p>";
-                    echo "<span>{$linha['cambio']}</span>";
-                    echo "<span>📍 {$linha['nome_municipio']} - {$linha['estado']}</span>";
-                    echo "<span>{$linha['dispo']}</span>";
+                    echo "<p><strong>Sobre mim: </strong>{$linha['descricao']}</p>";
+                    echo "<span><strong>Tipo de Carro: </strong>{$linha['cambio']}</span>";
+                    echo "<span><strong>Região/Cidade: </strong>📍 {$linha['nome_municipio']} - {$linha['estado']}</span>";
+                    echo "<span><strong>Disponibilidade: </strong>{$linha['dispo']}</span>";
                     echo "<div class='card_rodape'>";
-                    echo "<strong>R$ {$linha['valor']},00/h</strong>";
+                    echo "<strong><strong>Valor: </strong>R$ {$linha['valor']},00/h</strong>";
                     echo "</div>";
                     echo "<img src='img/hearth2.svg' class='favorito'>";
                     echo "</div>";
@@ -480,6 +480,10 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
         function sair() {
             window.location.href = "index.php";
+        }
+
+        function dashboard() {
+            window.location.href = "dashboard.php";
         }
 
         function perfil() {
