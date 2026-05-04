@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 29-Abr-2026 às 02:05
--- Versão do servidor: 10.4.27-MariaDB
--- versão do PHP: 8.0.25
+-- Tempo de geração: 04/05/2026 às 21:48
+-- Versão do servidor: 10.4.32-MariaDB
+-- Versão do PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `bairros`
+-- Estrutura para tabela `bairros`
 --
 
 CREATE TABLE `bairros` (
@@ -35,7 +35,7 @@ CREATE TABLE `bairros` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Extraindo dados da tabela `bairros`
+-- Despejando dados para a tabela `bairros`
 --
 
 INSERT INTO `bairros` (`id_bairro`, `codigo_bairro`, `nome_bairro`, `uf_estado`) VALUES
@@ -14378,7 +14378,32 @@ INSERT INTO `bairros` (`id_bairro`, `codigo_bairro`, `nome_bairro`, `uf_estado`)
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `estados`
+-- Estrutura para tabela `detalhes`
+--
+
+CREATE TABLE `detalhes` (
+  `id_usuario` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
+  `descricao` varchar(255) DEFAULT NULL,
+  `cambio` varchar(20) DEFAULT NULL,
+  `estado` varchar(20) DEFAULT NULL,
+  `cidade` varchar(50) DEFAULT NULL,
+  `valor` varchar(10) DEFAULT NULL,
+  `dispo` varchar(10) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `detalhes`
+--
+
+INSERT INTO `detalhes` (`id_usuario`, `id`, `descricao`, `cambio`, `estado`, `cidade`, `valor`, `dispo`) VALUES
+(1, 1, 'Gosto de gatos', 'Manual/Automático', 'AP', '298', '80', 'Noite'),
+(3, 2, 'Tenho um BYD, uso sapatênis sem meia, camisa polo da lacoste, óculos Rayban, e o unico poluente do meu carro é a fumaça de rosca.', 'Automático', 'SP', '3830', '200', 'Noite');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `estados`
 --
 
 CREATE TABLE `estados` (
@@ -14390,7 +14415,7 @@ CREATE TABLE `estados` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Extraindo dados da tabela `estados`
+-- Despejando dados para a tabela `estados`
 --
 
 INSERT INTO `estados` (`id_estado`, `codigo_uf_estado`, `nome_estado`, `uf_estado`, `id_regiao`) VALUES
@@ -14425,7 +14450,7 @@ INSERT INTO `estados` (`id_estado`, `codigo_uf_estado`, `nome_estado`, `uf_estad
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `municipios`
+-- Estrutura para tabela `municipios`
 --
 
 CREATE TABLE `municipios` (
@@ -14436,7 +14461,7 @@ CREATE TABLE `municipios` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Extraindo dados da tabela `municipios`
+-- Despejando dados para a tabela `municipios`
 --
 
 INSERT INTO `municipios` (`id_municipio`, `codigo_municipio`, `nome_municipio`, `uf_estado`) VALUES
@@ -20018,7 +20043,7 @@ INSERT INTO `municipios` (`id_municipio`, `codigo_municipio`, `nome_municipio`, 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `regiao`
+-- Estrutura para tabela `regiao`
 --
 
 CREATE TABLE `regiao` (
@@ -20027,7 +20052,7 @@ CREATE TABLE `regiao` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Extraindo dados da tabela `regiao`
+-- Despejando dados para a tabela `regiao`
 --
 
 INSERT INTO `regiao` (`Id`, `Nome`) VALUES
@@ -20040,7 +20065,7 @@ INSERT INTO `regiao` (`Id`, `Nome`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `usuario`
+-- Estrutura para tabela `usuario`
 --
 
 CREATE TABLE `usuario` (
@@ -20053,48 +20078,56 @@ CREATE TABLE `usuario` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Extraindo dados da tabela `usuario`
+-- Despejando dados para a tabela `usuario`
 --
 
 INSERT INTO `usuario` (`id_usuario`, `email_usuario`, `senha_usuario`, `cargo_usuario`, `nome_usuario`, `foto_usuario`) VALUES
-(1, 'elciosava@outlook.com', '$2y$10$R93Ggdd64Dh5y9nVzNq.ke4myXCMPFxV2T96ejcIrVWMCHyIaJm3K', 'Instrutor', 'Elcio Sava', 'uploads/69f13faf18a16.jpg');
+(1, 'elciosava@outlook.com', '$2y$10$R93Ggdd64Dh5y9nVzNq.ke4myXCMPFxV2T96ejcIrVWMCHyIaJm3K', 'Instrutor', 'Elcio Sava', 'uploads/69f13faf18a16.jpg'),
+(2, 'karvatraul@gmail.com', '$2y$10$/xCnHTxx91VQQ.Qup0Hi.ejp60lP/S4RGXpBhVZ5qQpYLQ7w5gaZC', 'Aluno', 'Raul Karvat', 'uploads/69f8de1324cc4.png'),
+(3, 'juquinha@gmail.com', '$2y$10$zAw1MC2O5N6o/EFOrHbhoOSnBq4dEHJt.kZ6KCVzVtPfdUMk0uy1a', 'Instrutor', 'Juquinha', 'uploads/69f8e9f4ab862.png');
 
 --
 -- Índices para tabelas despejadas
 --
 
 --
--- Índices para tabela `bairros`
+-- Índices de tabela `bairros`
 --
 ALTER TABLE `bairros`
   ADD PRIMARY KEY (`id_bairro`);
 
 --
--- Índices para tabela `estados`
+-- Índices de tabela `detalhes`
+--
+ALTER TABLE `detalhes`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices de tabela `estados`
 --
 ALTER TABLE `estados`
   ADD PRIMARY KEY (`id_estado`);
 
 --
--- Índices para tabela `municipios`
+-- Índices de tabela `municipios`
 --
 ALTER TABLE `municipios`
   ADD PRIMARY KEY (`id_municipio`);
 
 --
--- Índices para tabela `regiao`
+-- Índices de tabela `regiao`
 --
 ALTER TABLE `regiao`
   ADD PRIMARY KEY (`Id`);
 
 --
--- Índices para tabela `usuario`
+-- Índices de tabela `usuario`
 --
 ALTER TABLE `usuario`
   ADD PRIMARY KEY (`id_usuario`);
 
 --
--- AUTO_INCREMENT de tabelas despejadas
+-- AUTO_INCREMENT para tabelas despejadas
 --
 
 --
@@ -20102,6 +20135,12 @@ ALTER TABLE `usuario`
 --
 ALTER TABLE `bairros`
   MODIFY `id_bairro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14321;
+
+--
+-- AUTO_INCREMENT de tabela `detalhes`
+--
+ALTER TABLE `detalhes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `estados`
@@ -20125,7 +20164,7 @@ ALTER TABLE `regiao`
 -- AUTO_INCREMENT de tabela `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
