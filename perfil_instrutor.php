@@ -418,19 +418,34 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
         <div class="instrutores">
             <div class="instrutores_header">
-                <h2>Instrutores Recomendados</h2>
-                <a href="">Ver todos</a>
+
             </div>
 
             <div class="cards_instrutores">
                 <?php
                 include "conexao/conexao.php";
 
-                $instrutores = "SELECT u.nome_usuario, u.foto_usuario, u.cargo_usuario, d.descricao, d.cambio, d.estado, d.cidade, d.valor, d.dispo 
+                $id = $_GET['id'] ?? null;
+
+                $instrutores = "SELECT 
+                                    u.id_usuario, 
+                                    u.nome_usuario, 
+                                    u.foto_usuario, 
+                                    u.cargo_usuario, 
+                                    d.descricao, 
+                                    d.cambio, 
+                                    d.estado, 
+                                    d.cidade, 
+                                    d.valor, 
+                                    d.dispo, 
+                                    m.nome_municipio 
                                 FROM usuario AS u 
-                                INNER JOIN detalhes AS d 
-                                ON u.id_usuario = d.id_usuario;";
+                                INNER JOIN detalhes AS d ON u.id_usuario = d.id_usuario
+                                INNER JOIN municipios AS m ON m.id_municipio = d.cidade
+                                WHERE u.id_usuario = :id";
+
                 $stmt = $conexao->prepare($instrutores);
+                $stmt->bindParam(':id', $id);
                 $stmt->execute();
 
                 while ($linha = $stmt->fetch(PDO::FETCH_ASSOC)) {
@@ -443,12 +458,12 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
                     echo "<span class='credenciado'>🚗 Instrutor credenciado</span>";
                     echo "</div>";
                     echo "</div>";
-                    echo "<p>Instrutor com 10 anos de experiência. Especialista em primeira habilitação.</p>";
-                    echo "<span>Manual e Automático</span>";
-                    echo "<span>📍 Zona Sul - SP</span>";
+                    echo "<p>{$linha['descricao']}</p>";
+                    echo "<span>{$linha['cambio']}</span>";
+                    echo "<span>📍 {$linha['nome_municipio']} - {$linha['estado']}</span>";
+                    echo "<span>{$linha['dispo']}</span>";
                     echo "<div class='card_rodape'>";
-                    echo "<strong>R$ 80,00/h</strong>";
-                    echo "<button>Ver Perfil</button>";
+                    echo "<strong>R$ {$linha['valor']},00/h</strong>";
                     echo "</div>";
                     echo "<img src='img/hearth2.svg' class='favorito'>";
                     echo "</div>";

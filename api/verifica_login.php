@@ -21,7 +21,7 @@ if ($user && password_verify($senha_usuario, $user['senha_usuario'])) {
     $_SESSION['cargo_usuario'] = $user['cargo_usuario'];
 
     if ($user['cargo_usuario'] == 'Instrutor') {
-        header("Location: ../pesquisar.php");
+        header("Location: ../instrutor.php");
     } elseif ($user['cargo_usuario'] == 'Aluno') {
         header("Location: ../dashboard.php");
     } else {

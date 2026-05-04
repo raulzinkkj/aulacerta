@@ -475,7 +475,12 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
                 <?php
                 include "conexao/conexao.php";
 
-                $instrutores = "SELECT * FROM usuario WHERE cargo_usuario = 'Instrutor'";
+                $instrutores = "SELECT u.id_usuario, u.nome_usuario, u.foto_usuario, u.cargo_usuario, d.descricao, d.cambio, d.estado, d.cidade, d.valor, d.dispo, m.nome_municipio 
+                                FROM usuario AS u 
+                                INNER JOIN detalhes AS d ON u.id_usuario = d.id_usuario 
+                                INNER JOIN municipios AS m ON m.id_municipio = d.cidade
+                                WHERE u.cargo_usuario = 'Instrutor' ";
+
                 $stmt = $conexao->prepare($instrutores);
                 $stmt->execute();
 
@@ -489,12 +494,14 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
                     echo "<span class='credenciado'>🚗 Instrutor credenciado</span>";
                     echo "</div>";
                     echo "</div>";
-                    echo "<p>Instrutor com 10 anos de experiência. Especialista em primeira habilitação.</p>";
-                    echo "<span>Manual e Automático</span>";
-                    echo "<span>📍 Zona Sul - SP</span>";
+                    echo "<p>{$linha['descricao']}</p>";
+                    echo "<span>{$linha['cambio']}</span>";
+                    echo "<span>📍 {$linha['nome_municipio']} - {$linha['estado']}</span>";
                     echo "<div class='card_rodape'>";
-                    echo "<strong>R$ 80,00/h</strong>";
-                    echo "<button onclick='perfil_instrutor()'>Ver Perfil</button>";
+                    echo "<strong>R$ {$linha['valor']},00/h</strong>";
+                    echo "<form action='perfil_instrutor.php' method='get'>";
+                    echo "<input type='hidden' value='{$linha['id_usuario']}' name='id'><button onclick='perfil_instrutor()'>Ver Perfil</button>";
+                    echo "</form>";
                     echo "</div>";
                     echo "<img src='img/hearth2.svg' class='favorito'>";
                     echo "</div>";
