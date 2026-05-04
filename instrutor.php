@@ -472,7 +472,7 @@ $stmt_cidades->execute();
         <div class="pagina">
             <h1>Meu Perfil</h1>
 
-            <form action="api/gravar_perfil.php" method="post">
+            <form action="api/gravar_instrutor.php" method="post">
 
                 <label for="descricao">Sobre Mim:</label>
                 <textarea name="descricao" id="" cols="30" rows="5"></textarea>

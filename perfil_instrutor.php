@@ -381,7 +381,7 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
                 <h1>AulaCerta</h1>
             </div>
             <div class="topicos">
-                <div class="topico destaque">
+                <div class="topico">
                     <img src="img/house.svg" alt="">
                     <h2>Dashboard</h2>
                 </div>
@@ -414,56 +414,7 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
             </div>
         </div>
 
-        <div class="bemvindo">
-            <div class="bemvindo2">
-                <h1>Bem-vindo,
-                    <?php
-                    $nomeCompleto = $_SESSION['nome_usuario'];
 
-                    $partes = explode(" ", $nomeCompleto);
-
-                    $primeiroNome = $partes[0];
-
-                    echo $primeiroNome;
-                    ?>
-                    🖐️</h1>
-                <p>Encontre o instrutor ideal para suas aulas particulares.</p>
-            </div>
-            <button class="botao" onclick="pesquisar()">Buscar Instrutores</button>
-        </div>
-
-        <div class="resumo">
-            <div class="card_resumo">
-                <div class="circulo user">
-                    <img src="img/user2.svg" alt="">
-                </div>
-                <div>
-                    <span>Aulas Agendadas</span>
-                    <strong>2</strong>
-                    <a href="">Ver detalhes →</a>
-                </div>
-            </div>
-            <div class="card_resumo">
-                <div class="circulo star">
-                    <img src="img/star.svg" alt="">
-                </div>
-                <div>
-                    <span>Instrutores Favoritos</span>
-                    <strong>5</strong>
-                    <a href="">Ver favoritos →</a>
-                </div>
-            </div>
-            <div class="card_resumo">
-                <div class="circulo message">
-                    <img src="img/message2.svg" alt="">
-                </div>
-                <div>
-                    <span>Mensagens</span>
-                    <strong>2 não lidas</strong>
-                    <a href="">Ver mensagens →</a>
-                </div>
-            </div>
-        </div>
 
         <div class="instrutores">
             <div class="instrutores_header">
@@ -475,7 +426,10 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
                 <?php
                 include "conexao/conexao.php";
 
-                $instrutores = "SELECT * FROM usuario WHERE cargo_usuario = 'Instrutor'";
+                $instrutores = "SELECT u.nome_usuario, u.foto_usuario, u.cargo_usuario, d.descricao, d.cambio, d.estado, d.cidade, d.valor, d.dispo 
+                                FROM usuario AS u 
+                                INNER JOIN detalhes AS d 
+                                ON u.id_usuario = d.id_usuario;";
                 $stmt = $conexao->prepare($instrutores);
                 $stmt->execute();
 
@@ -494,7 +448,7 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
                     echo "<span>📍 Zona Sul - SP</span>";
                     echo "<div class='card_rodape'>";
                     echo "<strong>R$ 80,00/h</strong>";
-                    echo "<button onclick='perfil_instrutor()'>Ver Perfil</button>";
+                    echo "<button>Ver Perfil</button>";
                     echo "</div>";
                     echo "<img src='img/hearth2.svg' class='favorito'>";
                     echo "</div>";
@@ -515,10 +469,6 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
         function perfil() {
             window.location.href = "instrutor.php";
-        }
-        
-         function perfil_instrutor() {
-            window.location.href = "perfil_instrutor.php";
         }
     </script>
 </body>

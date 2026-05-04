@@ -25,6 +25,6 @@ if ($_SERVER['REQUEST_METHOD'] ==='POST'){
     $stmt->bindParam(':dispo', $dispo);
     $stmt->execute();
 
-    header("Location: ../meuperfil.php");
+    header("Location: ../instrutor.php");
 }
 ?>

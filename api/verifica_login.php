@@ -18,10 +18,16 @@ if ($user && password_verify($senha_usuario, $user['senha_usuario'])) {
     $_SESSION['email_usuario'] = $user['email_usuario'];
     $_SESSION['id_usuario'] = $user['id_usuario'];
     $_SESSION['nome_usuario'] = $user['nome_usuario'];
+    $_SESSION['cargo_usuario'] = $user['cargo_usuario'];
 
-    header("Location: ../dashboard.php");
-    exit;
-}else{
+    if ($user['cargo_usuario'] == 'Instrutor') {
+        header("Location: ../pesquisar.php");
+    } elseif ($user['cargo_usuario'] == 'Aluno') {
+        header("Location: ../dashboard.php");
+    } else {
+        header("Location: ../dashboard.php");
+        exit;
+    }
+} else {
     echo "Email ou Senha Inválidos";
 }
-?>
