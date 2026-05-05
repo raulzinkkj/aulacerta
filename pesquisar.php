@@ -1,6 +1,10 @@
 <?php
 session_start();
 
+$pagina = isset($_GET['page']) ? max(1, (int)$_GET['page']) : 1;
+$limite = 4;
+$offset = ($pagina - 1) * $limite;
+
 if (!isset($_SESSION['id_usuario'])) {
     header("Location: index.php");
     exit;
@@ -413,7 +417,7 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
             <div class="filtros">
                 <div class="filtro-group">
                     <label for="">Localização</label>
-                    <input type="text" value="São Paulo, SP">
+                    <input type="text" placeholder="São Paulo, SP">
                 </div>
                 <div class="filtro-group">
                     <label for="">Tipo de Câmbio</label>
@@ -435,7 +439,7 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
             </div>
 
             <div class="resultados">
-                <span>Encontrados 24 instrutores</span>
+                <span>Encontrados alguns instrutores</span>
                 <div class="ordem">
                     <span>Ordenar por:</span>
                     <select>
@@ -444,79 +448,79 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
                     </select>
                 </div>
             </div>
+            
+            <div class="cards_instrutores">
+                <?php
+                include "conexao/conexao.php";
 
-            <div class="card">
-                <div class="foto">
-                    <img src="img/carlos.jpg" alt="">
-                </div>
-                <div class="info">
-                    <div class="nome">
-                        <h2>Carlos Mendes</h2>
-                        <span class="stars">★ 4.9</span>
-                        <span style="font-size:12px;">(124 avaliações)</span>
-                        <span class="verdinho">Instrutor credenciado</span>
-                    </div>
-                    <p class="desc">Instrutor com 10 anos de experiência. Especialista em primeira habilitação e direção defensiva.
-                    </p>
-                    <div class="tags">
-                        <span class="tag">⚙ Manual e Automático</span>
-                        <span class="tag">📍 Zona Sul – SP</span>
-                        <span class="tag">🕐 10 anos exp.</span>
-                    </div>
-                </div>
-                <div class="precos">
-                    <span class="preco">R$ 80,00/h</span>
-                    <button class="botao_perfil">Ver Perfil</button>
-                </div>
-            </div>
+                $sqlTotal = "SELECT COUNT(*) as total
+                             FROM usuario AS u
+                             INNER JOIN detalhes AS d ON u.id_usuario = d.id_usuario
+                             WHERE u.cargo_usuario = 'Instrutor'";
 
-            <div class="card">
-                <div class="foto">
-                    <img src="img/ana.jpg" alt="">
-                </div>
-                <div class="info">
-                    <div class="nome">
-                        <h2>Ana Paula Silva</h2>
-                        <span class="stars">★ 4.8</span>
-                        <span style="font-size:12px;">(96 avaliações)</span>
-                        <span class="verdinho">Instrutora credenciada</span>
-                    </div>
-                    <p class="desc">Paciência e didática especializada para alunos iniciantes. Foco em confiança ao dirigir.</p>
-                    <div class="tags">
-                        <span class="tag">⚙ Automático</span>
-                        <span class="tag">📍 Centro – SP</span>
-                        <span class="tag">🕐 8 anos exp.</span>
-                    </div>
-                </div>
-                <div class="precos">
-                    <span class="preco">R$ 75,00/h</span>
-                    <button class="botao_perfil">Ver Perfil</button>
-                </div>
-            </div>
+                $stmtTotal = $conexao->prepare($sqlTotal);
+                $stmtTotal->execute();
 
-            <div class="card">
-                <div class="foto">
-                    <img src="img/roberto.jpg" alt="">
-                </div>
-                <div class="info">
-                    <div class="nome">
-                        <h2>Roberto Costa</h2>
-                        <span class="stars">★ 4.9</span>
-                        <span style="font-size:12px;">(156 avaliações)</span>
-                        <span class="verdinho">Instrutor credenciado</span>
-                    </div>
-                    <p class="desc">Especialista em reciclagem para habilitados e aperfeiçoamento. 15 anos de experiência.</p>
-                    <div class="tags">
-                        <span class="tag">⚙ Manual e Automático</span>
-                        <span class="tag">📍 Zona Oeste – SP</span>
-                        <span class="tag">🕐 15 anos exp.</span>
-                    </div>
-                </div>
-                <div class="precos">
-                    <span class="preco">R$ 85,00/h</span>
-                    <button class="botao_perfil">Ver Perfil</button>
-                </div>
+                $totalRegistros = $stmtTotal->fetch(PDO::FETCH_ASSOC)['total'];
+                $totalPaginas = ceil($totalRegistros / $limite);
+
+                $instrutores = "SELECT u.id_usuario, u.nome_usuario, u.foto_usuario, u.cargo_usuario, d.descricao, d.cambio, d.estado, d.cidade, d.valor, d.dispo, m.nome_municipio 
+                                FROM usuario AS u 
+                                INNER JOIN detalhes AS d ON u.id_usuario = d.id_usuario 
+                                INNER JOIN municipios AS m ON m.id_municipio = d.cidade
+                                WHERE u.cargo_usuario = 'Instrutor' 
+                                LIMIT $limite OFFSET $offset";
+
+                $stmt = $conexao->prepare($instrutores);
+                $stmt->execute();
+
+                while ($linha = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                   echo "<div class='card'>";
+                    echo "<div class='foto'>";
+                        echo "<img src='{$linha['foto_usuario']}' class='foto_instrutor'>";
+                    echo "</div>";
+                    //Começo da div info
+                    echo "<div class='info'>";
+                        echo "<div class='nome'>";
+                            echo "<h2>{$linha['nome_usuario']}</h2>";
+                            echo "<span class='stars'>★ 4.9</span>";
+                            echo "<span style='font-size:12px;'>(124 avaliações)</span>";
+                            echo "<span class='verdinho'>Instrutor credenciado</span>";
+                        echo "</div>";
+                        echo "<p>{$linha['descricao']}</p>";
+                        echo "<div class='tags'>";
+                            echo "<span>{$linha['cambio']}</span>";
+                            echo "<span>📍 {$linha['nome_municipio']} - {$linha['estado']}</span>";
+                            echo "<span class='tag'>🕐 10 anos exp.</span>";
+                        echo "</div>";
+                    echo "</div>";
+                    echo "<div class='precos'>";
+                        echo "<span class='preco'>R$ {$linha['valor']},00/h</span>";
+                        echo "<form action='perfil_instrutor.php' method='get'>";
+                    echo "<input type='hidden' value='{$linha['id_usuario']}' name='id'><button class='botao_perfil' onclick='perfil_instrutor()'>Ver Perfil</button>";
+                    echo "</form>";
+                    echo "</div>";
+                   echo "</div>"; //fim da div card
+                }
+                ?>
             </div>
+            <div style="margin-top: 20px;">
+                <?php if ($pagina > 1): ?>
+                    <a href="?page=<?php echo $pagina - 1; ?>">◀️ Anterior</a>
+                <?php endif; ?>
+
+                <?php for ($i = 1; $i <= $totalPaginas; $i++): ?>
+                    <a href="?page=<?php echo $i; ?>"
+                        style="margin: 0 5px; <?php echo ($i == $pagina) ? 'font-weight:bold;' : ''; ?>">
+                        <?php echo $i; ?>
+                    </a>
+                <?php endfor; ?>
+
+                <?php if ($pagina < $totalPaginas): ?>
+                    <a href="?page=<?php echo $pagina + 1; ?>">Próxima ▶️</a>
+                <?php endif; ?>
+            </div>
+        
         </div>
         </div>
     </section>
@@ -527,6 +531,9 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
         function sair() {
             window.location.href = "index.php";
+        }
+         function perfil_instrutor() {
+            window.location.href = "perfil_instrutor.php";
         }
     </script>
 </body>

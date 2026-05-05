@@ -463,9 +463,10 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
                     echo "<span><strong>Região/Cidade: </strong>📍 {$linha['nome_municipio']} - {$linha['estado']}</span>";
                     echo "<span><strong>Disponibilidade: </strong>{$linha['dispo']}</span>";
                     echo "<div class='card_rodape'>";
-                    echo "<strong><strong>Valor: </strong>R$ {$linha['valor']},00/h</strong>";
+                    echo "<strong><strong>Valor: </strong>R$ {$linha['valor']},00/h</strong><button class='botao_perfil'>Contratar</button>";
                     echo "</div>";
                     echo "<img src='img/hearth2.svg' class='favorito'>";
+                    
                     echo "</div>";
                 }
                 ?>
