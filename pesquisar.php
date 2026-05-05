@@ -451,8 +451,10 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
             
             <div class="cards_instrutores">
                 <?php
+                //Inclui o arquivo de conexão
                 include "conexao/conexao.php";
 
+                //Conta o total de registros
                 $sqlTotal = "SELECT COUNT(*) as total
                              FROM usuario AS u
                              INNER JOIN detalhes AS d ON u.id_usuario = d.id_usuario
@@ -464,6 +466,7 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
                 $totalRegistros = $stmtTotal->fetch(PDO::FETCH_ASSOC)['total'];
                 $totalPaginas = ceil($totalRegistros / $limite);
 
+                //Busca informações na tabela detalhes e municipios
                 $instrutores = "SELECT u.id_usuario, u.nome_usuario, u.foto_usuario, u.cargo_usuario, d.descricao, d.cambio, d.estado, d.cidade, d.valor, d.dispo, m.nome_municipio 
                                 FROM usuario AS u 
                                 INNER JOIN detalhes AS d ON u.id_usuario = d.id_usuario 
@@ -474,6 +477,7 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
                 $stmt = $conexao->prepare($instrutores);
                 $stmt->execute();
 
+                //Enquanto houver registros no banco ele monta os cards de visualização
                 while ($linha = $stmt->fetch(PDO::FETCH_ASSOC)) {
                    echo "<div class='card'>";
                     echo "<div class='foto'>";
@@ -505,6 +509,7 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
                 ?>
             </div>
             <div style="margin-top: 20px;">
+                <!-- Monta a div de paginação -->
                 <?php if ($pagina > 1): ?>
                     <a href="?page=<?php echo $pagina - 1; ?>">◀️ Anterior</a>
                 <?php endif; ?>
