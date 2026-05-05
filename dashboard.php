@@ -254,8 +254,10 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
         }
 
         .cards_instrutores {
-            display: flex;
-            gap: 15px;
+            height: calc(100vh - 330px);
+            display: grid;
+            grid-template-columns: repeat(4,1fr);
+            gap: 30px;
         }
 
         .card_instrutor {
@@ -268,6 +270,7 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
             border-radius: 10px;
             background: white;
             position: relative;
+            height: 310px;
         }
 
         .card_topo {
@@ -471,43 +474,44 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
                 <a href="">Ver todos</a>
             </div>
 
-            <div class="cards_instrutores">
-                <?php
-                include "conexao/conexao.php";
+                <div class="cards_instrutores">
+                    <?php
+                    include "conexao/conexao.php";
 
-                $instrutores = "SELECT u.id_usuario, u.nome_usuario, u.foto_usuario, u.cargo_usuario, d.descricao, d.cambio, d.estado, d.cidade, d.valor, d.dispo, m.nome_municipio 
-                                FROM usuario AS u 
-                                INNER JOIN detalhes AS d ON u.id_usuario = d.id_usuario 
-                                INNER JOIN municipios AS m ON m.id_municipio = d.cidade
-                                WHERE u.cargo_usuario = 'Instrutor' ";
+                    $instrutores = "SELECT u.id_usuario, u.nome_usuario, u.foto_usuario, u.cargo_usuario, d.descricao, d.cambio, d.estado, d.cidade, d.valor, d.dispo, m.nome_municipio 
+                                    FROM usuario AS u 
+                                    INNER JOIN detalhes AS d ON u.id_usuario = d.id_usuario 
+                                    INNER JOIN municipios AS m ON m.id_municipio = d.cidade
+                                    WHERE u.cargo_usuario = 'Instrutor' ";
 
-                $stmt = $conexao->prepare($instrutores);
-                $stmt->execute();
+                    $stmt = $conexao->prepare($instrutores);
+                    $stmt->execute();
 
-                while ($linha = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                    echo "<div class='card_instrutor'>";
-                    echo "<div class='card_topo'>";
-                    echo "<img src='{$linha['foto_usuario']}' class='foto_instrutor'>";
-                    echo "<div class='info_instrutor'>";
-                    echo "<strong>{$linha['nome_usuario']}</strong>";
-                    echo "<span>⭐ 4.9 (124)</span>";
-                    echo "<span class='credenciado'>🚗 Instrutor credenciado</span>";
-                    echo "</div>";
-                    echo "</div>";
-                    echo "<p>{$linha['descricao']}</p>";
-                    echo "<span>{$linha['cambio']}</span>";
-                    echo "<span>📍 {$linha['nome_municipio']} - {$linha['estado']}</span>";
-                    echo "<div class='card_rodape'>";
-                    echo "<strong>R$ {$linha['valor']},00/h</strong>";
-                    echo "<form action='perfil_instrutor.php' method='get'>";
-                    echo "<input type='hidden' value='{$linha['id_usuario']}' name='id'><button onclick='perfil_instrutor()'>Ver Perfil</button>";
-                    echo "</form>";
-                    echo "</div>";
-                    echo "<img src='img/hearth2.svg' class='favorito'>";
-                    echo "</div>";
-                }
-                ?>
-            </div>
+                    while ($linha = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                        echo "<div class='card_instrutor'>";
+                        echo "<div class='card_topo'>";
+                        echo "<img src='{$linha['foto_usuario']}' class='foto_instrutor'>";
+                        echo "<div class='info_instrutor'>";
+                        echo "<strong>{$linha['nome_usuario']}</strong>";
+                        echo "<span>⭐ 4.9 (124)</span>";
+                        echo "<span class='credenciado'>🚗 Instrutor credenciado</span>";
+                        echo "</div>";
+                        echo "</div>";
+                        echo "<p>{$linha['descricao']}</p>";
+                        echo "<span>{$linha['cambio']}</span>";
+                        echo "<span>📍 {$linha['nome_municipio']} - {$linha['estado']}</span>";
+                        echo "<div class='card_rodape'>";
+                        echo "<strong>R$ {$linha['valor']},00/h</strong>";
+                        echo "<form action='perfil_instrutor.php' method='get'>";
+                        echo "<input type='hidden' value='{$linha['id_usuario']}' name='id'><button onclick='perfil_instrutor()'>Ver Perfil</button>";
+                        echo "</form>";
+                        echo "</div>";
+                        echo "<img src='img/hearth2.svg' class='favorito'>";
+                        echo "</div>";
+                    }
+                    ?>
+                </div>
+                
         </div>
     </section>
 
