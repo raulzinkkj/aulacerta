@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 04/05/2026 às 21:48
+-- Tempo de geração: 05/05/2026 às 21:38
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -14397,8 +14397,15 @@ CREATE TABLE `detalhes` (
 --
 
 INSERT INTO `detalhes` (`id_usuario`, `id`, `descricao`, `cambio`, `estado`, `cidade`, `valor`, `dispo`) VALUES
-(1, 1, 'Gosto de gatos', 'Manual/Automático', 'AP', '298', '80', 'Noite'),
-(3, 2, 'Tenho um BYD, uso sapatênis sem meia, camisa polo da lacoste, óculos Rayban, e o unico poluente do meu carro é a fumaça de rosca.', 'Automático', 'SP', '3830', '200', 'Noite');
+(2, 2, 'Aulas práticas e objetivas para passar de primeira.', 'Automático', 'SC', '2', '85', 'Noite'),
+(3, 3, 'Mais de 10 anos de experiência no trânsito urbano.', 'Manual', 'RS', '3', '75', 'Manhã'),
+(4, 4, 'Foco em direção defensiva e segurança.', 'Automático', 'PR', '1', '90', 'Tarde'),
+(5, 5, 'Instrutor calmo e didático para todas as idades.', 'Manual', 'SC', '2', '70', 'Manhã'),
+(6, 6, 'Especialista em alunos com medo de dirigir.', 'Automático', 'RS', '3', '95', 'Noite'),
+(7, 7, 'Treinamento intensivo para prova prática.', 'Manual', 'PR', '1', '85', 'Noite'),
+(8, 8, 'Aulas personalizadas conforme sua necessidade.', 'Automático', 'SC', '2', '88', 'Manhã'),
+(9, 9, 'Aulas personalizadas conforme sua necessidade.', 'Automático', 'SC', '2', '88', 'Tarde'),
+(10, 10, 'Aulas práticas e objetivas para passar de primeira.', 'Automático', 'SC', '2', '85', 'Noite');
 
 -- --------------------------------------------------------
 
@@ -20082,9 +20089,16 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`id_usuario`, `email_usuario`, `senha_usuario`, `cargo_usuario`, `nome_usuario`, `foto_usuario`) VALUES
-(1, 'elciosava@outlook.com', '$2y$10$R93Ggdd64Dh5y9nVzNq.ke4myXCMPFxV2T96ejcIrVWMCHyIaJm3K', 'Instrutor', 'Elcio Sava', 'uploads/69f13faf18a16.jpg'),
-(2, 'karvatraul@gmail.com', '$2y$10$/xCnHTxx91VQQ.Qup0Hi.ejp60lP/S4RGXpBhVZ5qQpYLQ7w5gaZC', 'Aluno', 'Raul Karvat', 'uploads/69f8de1324cc4.png'),
-(3, 'juquinha@gmail.com', '$2y$10$zAw1MC2O5N6o/EFOrHbhoOSnBq4dEHJt.kZ6KCVzVtPfdUMk0uy1a', 'Instrutor', 'Juquinha', 'uploads/69f8e9f4ab862.png');
+(1, 'karvatraul@gmail.com', '$2y$10$0FRJ2ptjL6B7zz6eUHHHx.FsCR2GYLb2gM7H7szRUVSehx03Mlpnu', 'Aluno', 'Raul Karvat', 'uploads/69fa44315ccfe.png'),
+(2, 'elciosava@outlook.com', '$2y$10$VWHaxDa.PlYnOF65m2mJ8OLoQdwQmqvwSRjpOIdbLfZ.rQJ2jsKTa', 'Instrutor', 'Elcio Sava', 'uploads/69fa44576b256.png'),
+(3, 'joao.silva@gmail.com', '$2y$10$iXCZRc9nvbwYPvbhjG5GDeX8ZD/Cm0SEyvBKYewDUnkBPt5DHkOf2', 'Instrutor', 'João Silva', 'uploads/69fa4493295c9.jpg'),
+(4, 'maria@gmail.com', '$2y$10$9w8M5VzAFeK0Uh7rxmWKh.fwD8LoVDXTVWNBpx4YApecxgsgE/ioC', 'Instrutor', 'Maria Oliveira', 'uploads/69fa45224a38f.jpg'),
+(5, 'garrafa@gmail.com', '$2y$10$9xXVVxMCsIOLohJn6dlkiOLGHUVmNj8VANKeQZ3yJskT3wDwT3t.G', 'Instrutor', 'Garrafa', 'uploads/69fa4549db69d.png'),
+(6, 'carlos@gmail.com', '$2y$10$FZqLhbk3M.rDUTWbbAxo5.tAy/ihi0xMPW16bTh6vTwcQKsLwMVmO', 'Instrutor', 'Carlos Souza', 'uploads/69fa45867280a.jpg'),
+(7, 'ana@gmail.com', '$2y$10$A8hISmq9rlF8cpBAKXFDs.uqZ4gA7fQBjbZlb4DSkYxJQfjJHrj/m', 'Instrutor', 'Ana Costa', 'uploads/69fa45a351e03.jpg'),
+(8, 'lucas@gmail.com', '$2y$10$kMd37ocxgg9CP7dnjqNm2.EISovLWsGIU1SE7DNJLVvV8RwvX3jrO', 'Instrutor', 'Lucas Rocha', 'uploads/69fa45d0084d2.jpg'),
+(9, 'fernanda@gmail.com', '$2y$10$diBQwf1OrTMaS7X3qBf4iekfUMbhRbNp4EHiYxOj1RnTk/iXMjnt2', 'Instrutor', 'Fernanda Lima', 'uploads/69fa46825560b.jpg'),
+(10, 'bruno@gmail.com', '$2y$10$bZsdJvoryZ7pZqZx5VsOUeslHd95SDb.C7d6GxKiAKcJRHn2wYiae', 'Instrutor', 'Bruno Almeida', 'uploads/69fa46acad9bf.jpg');
 
 --
 -- Índices para tabelas despejadas
@@ -20140,7 +20154,7 @@ ALTER TABLE `bairros`
 -- AUTO_INCREMENT de tabela `detalhes`
 --
 ALTER TABLE `detalhes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de tabela `estados`
@@ -20164,7 +20178,7 @@ ALTER TABLE `regiao`
 -- AUTO_INCREMENT de tabela `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

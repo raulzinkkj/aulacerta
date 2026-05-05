@@ -340,10 +340,51 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
             border: none;
             border-radius: 5px;
             font-size: 13px;
+            margin: 30px 0;
         }
 
         .cursor {
             cursor: pointer;
+        }
+
+        .paginacao {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-pag {
+            width: 35px;
+            height: 35px;
+            padding: 0 10px;
+            border-radius: 8px;
+            background: white;
+            border: 1px solid #dcdfe4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: #333;
+            transition: 0.2s;
+            text-decoration: none;
+        }
+
+        .btn-pag:hover {
+            background: #185FA5;
+            color: white;
+            border-color: #185FA5;
+        }
+
+        .btn-pag.ativo {
+            background: #185FA5;
+            color: white;
+            border-color: #185FA5;
+            font-weight: bold;
+        }
+
+        .proxima {
+            width: auto;
         }
     </style>
 </head>
@@ -435,18 +476,19 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
                         <option>R$ 75,00/h</option>
                     </select>
                 </div>
-                <button class="butao">Buscar</button>
-            </div>
-
-            <div class="resultados">
-                <span>Encontrados alguns instrutores</span>
-                <div class="ordem">
-                    <span>Ordenar por:</span>
+                <div class="filtro-group">
+                    <label for="">Ordenar</label>
                     <select>
                         <option>Avaliação</option>
                         <option>Preço</option>
                     </select>
                 </div>
+                <button class="butao">Buscar</button>
+            </div>
+
+            <div class="resultados">
+                <span>Encontrados alguns instrutores</span>
+                
             </div>
             
             <div class="cards_instrutores">
@@ -508,21 +550,21 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
                 }
                 ?>
             </div>
-            <div style="margin-top: 20px;">
+            <div class="paginacao">
                 <!-- Monta a div de paginação -->
                 <?php if ($pagina > 1): ?>
-                    <a href="?page=<?php echo $pagina - 1; ?>">◀️ Anterior</a>
+                    <a class="btn-pag proxima" href="?page=<?php echo $pagina - 1; ?>">◀️ Anterior</a>
                 <?php endif; ?>
 
                 <?php for ($i = 1; $i <= $totalPaginas; $i++): ?>
-                    <a href="?page=<?php echo $i; ?>"
-                        style="margin: 0 5px; <?php echo ($i == $pagina) ? 'font-weight:bold;' : ''; ?>">
+                    <a class="btn-pag" href="?page=<?php echo $i; ?>"
+                        style="margin: 0 5px; <?php echo ($i == $pagina) ? 'ativo' : ''; ?>">
                         <?php echo $i; ?>
                     </a>
                 <?php endfor; ?>
 
                 <?php if ($pagina < $totalPaginas): ?>
-                    <a href="?page=<?php echo $pagina + 1; ?>">Próxima ▶️</a>
+                    <a class="btn-pag proxima" href="?page=<?php echo $pagina + 1; ?>">Próxima ▶️</a>
                 <?php endif; ?>
             </div>
         
