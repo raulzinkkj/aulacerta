@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 05/05/2026 às 21:38
+-- Tempo de geração: 07/05/2026 às 21:27
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -20,6 +20,22 @@ SET time_zone = "+00:00";
 --
 -- Banco de dados: `aulacerta`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `agendamento`
+--
+
+CREATE TABLE `agendamento` (
+  `id_agendamento` int(11) NOT NULL,
+  `id_usuario` int(11) DEFAULT NULL,
+  `id_instrutor` int(11) DEFAULT NULL,
+  `nome_agendamento` varchar(50) DEFAULT NULL,
+  `dia_semana_agendamento` varchar(255) DEFAULT NULL,
+  `valor_agendamento` varchar(10) DEFAULT NULL,
+  `horario_agendamento` varchar(10) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -20105,6 +20121,12 @@ INSERT INTO `usuario` (`id_usuario`, `email_usuario`, `senha_usuario`, `cargo_us
 --
 
 --
+-- Índices de tabela `agendamento`
+--
+ALTER TABLE `agendamento`
+  ADD PRIMARY KEY (`id_agendamento`);
+
+--
 -- Índices de tabela `bairros`
 --
 ALTER TABLE `bairros`
@@ -20114,7 +20136,8 @@ ALTER TABLE `bairros`
 -- Índices de tabela `detalhes`
 --
 ALTER TABLE `detalhes`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_usuario` (`id_usuario`);
 
 --
 -- Índices de tabela `estados`
@@ -20143,6 +20166,12 @@ ALTER TABLE `usuario`
 --
 -- AUTO_INCREMENT para tabelas despejadas
 --
+
+--
+-- AUTO_INCREMENT de tabela `agendamento`
+--
+ALTER TABLE `agendamento`
+  MODIFY `id_agendamento` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `bairros`
@@ -20179,6 +20208,16 @@ ALTER TABLE `regiao`
 --
 ALTER TABLE `usuario`
   MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- Restrições para tabelas despejadas
+--
+
+--
+-- Restrições para tabelas `detalhes`
+--
+ALTER TABLE `detalhes`
+  ADD CONSTRAINT `fk_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
