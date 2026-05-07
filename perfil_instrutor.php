@@ -352,6 +352,10 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
         .cursor {
             cursor: pointer;
         }
+
+        .contratar {
+            margin-left: 50px;
+        }
     </style>
 </head>
 
@@ -464,7 +468,7 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
                     echo "<span><strong>Disponibilidade: </strong>{$linha['dispo']}</span>";
                     echo "<div class='card_rodape'>";
                     echo "<form action='agenda_aula.php' method='get'>";
-                    echo "<strong><strong>Valor: </strong>R$ {$linha['valor']},00/h</strong><input type='hidden' value='{$linha['id_usuario']}' name='id'><button class='botao_perfil' onclick='agendar()'>Contratar</button>";
+                    echo "<strong><strong>Valor: </strong>R$ {$linha['valor']},00/h</strong><input type='hidden' value='{$linha['id_usuario']}' name='id'><button class='botao_perfil contratar' onclick='agendar()'>Contratar</button>";
                     echo "</form>";
                     echo "</div>";
 

@@ -550,7 +550,8 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
                 echo "</div>";
 
                 echo "<label for='valor_agendamento' style='margin-top:10px;'>Valor:</label>";
-                echo "<input type='text' name='valor_agendamento' value='R$ {$linha['valor']},00/h'>";
+                echo "<h3>R$ {$linha['valor']},00/h</h3>";
+                echo "<input type='hidden' name='valor_agendamento' value='R$ {$linha['valor']},00/h'>";
 
                 echo "<label for='horario_agendamento'>Horário:</label>";
                 echo "<input type='time' name='horario_agendamento'>";
