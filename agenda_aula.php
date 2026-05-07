@@ -253,13 +253,6 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
             font-size: 0.9rem;
         }
 
-        .cards_instrutores {
-            height: calc(100vh - 380px);
-            display: grid;
-            grid-template-columns: repeat(4,1fr);
-            gap: 30px;
-        }
-
         .card_instrutor {
             flex: 1;
             display: flex;
@@ -354,6 +347,58 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
         .cursor {
             cursor: pointer;
         }
+
+        form {
+            width: 420px;
+            padding: 40px 36px;
+            border-radius: 15px;
+            background: white;
+            border: 1px solid #e0e4ea;
+            box-shadow: 0 2px 16px rgba(0, 0, 0, 0.07);
+            justify-content: center;
+            display: flex;
+            flex-direction: column;
+
+        }
+
+        .form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80vh;
+        }
+
+         input[type="checkbox"] {
+            width: auto;
+            height: 15px;
+            
+        }
+
+        input[type="text"],
+        input[type="time"] {
+            width: 100%;
+            padding: 10px 12px 10px 34px;
+            border: 1px solid #dcdcdc;
+            border-radius: 5px;
+            font-size: 14px;
+            color: #333;
+            margin-top: 5px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #2563EB;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 14px;
+        }
+
+
     </style>
 </head>
 
@@ -383,7 +428,7 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
                 <h1>AulaCerta</h1>
             </div>
             <div class="topicos">
-                <div class="topico destaque">
+                <div class="topico destaque" onclick="dashboard()">
                     <img src="img/house.svg" alt="">
                     <h2>Dashboard</h2>
                 </div>
@@ -416,104 +461,96 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
             </div>
         </div>
 
-        <div class="bemvindo">
-            <div class="bemvindo2">
-                <h1>Bem-vindo,
-                    <?php
-                    $nomeCompleto = $_SESSION['nome_usuario'];
 
-                    $partes = explode(" ", $nomeCompleto);
-
-                    $primeiroNome = $partes[0];
-
-                    echo $primeiroNome;
-                    ?>
-                    🖐️</h1>
-                <p>Encontre o instrutor ideal para suas aulas particulares.</p>
-            </div>
-            <button class="botao" onclick="pesquisar()">Buscar Instrutores</button>
-        </div>
-
-        <div class="resumo">
-            <div class="card_resumo">
-                <div class="circulo user">
-                    <img src="img/user2.svg" alt="">
-                </div>
-                <div>
-                    <span>Aulas Agendadas</span>
-                    <strong>2</strong>
-                    <a href="">Ver detalhes →</a>
-                </div>
-            </div>
-            <div class="card_resumo">
-                <div class="circulo star">
-                    <img src="img/star.svg" alt="">
-                </div>
-                <div>
-                    <span>Instrutores Favoritos</span>
-                    <strong>5</strong>
-                    <a href="">Ver favoritos →</a>
-                </div>
-            </div>
-            <div class="card_resumo">
-                <div class="circulo message">
-                    <img src="img/message2.svg" alt="">
-                </div>
-                <div>
-                    <span>Mensagens</span>
-                    <strong>2 não lidas</strong>
-                    <a href="">Ver mensagens →</a>
-                </div>
-            </div>
-        </div>
 
         <div class="instrutores">
             <div class="instrutores_header">
-                <h2>Instrutores Recomendados</h2>
-                <a href="">Ver todos</a>
+
             </div>
 
-                <div class="cards_instrutores">
-                    <?php
-                    include "conexao/conexao.php";
+            <div class="cards_instrutores">
+                <?php
+                include "conexao/conexao.php";
 
-                    $instrutores = "SELECT u.id_usuario, u.nome_usuario, u.foto_usuario, u.cargo_usuario, d.descricao, d.cambio, d.estado, d.cidade, d.valor, d.dispo, m.nome_municipio 
-                                    FROM usuario AS u 
-                                    INNER JOIN detalhes AS d ON u.id_usuario = d.id_usuario 
-                                    INNER JOIN municipios AS m ON m.id_municipio = d.cidade
-                                    WHERE u.cargo_usuario = 'Instrutor' 
-                                    LIMIT 8";
+                $id = $_GET['id'] ?? null;
 
+                $instrutores = "SELECT 
+                                    u.id_usuario, 
+                                    u.nome_usuario, 
+                                    u.foto_usuario, 
+                                    u.cargo_usuario, 
+                                    d.descricao, 
+                                    d.cambio, 
+                                    d.estado, 
+                                    d.cidade, 
+                                    d.valor, 
+                                    d.dispo, 
+                                    m.nome_municipio 
+                                FROM usuario AS u 
+                                INNER JOIN detalhes AS d ON u.id_usuario = d.id_usuario
+                                INNER JOIN municipios AS m ON m.id_municipio = d.cidade
+                                WHERE u.id_usuario = :id";
 
+                $stmt = $conexao->prepare($instrutores);
+                $stmt->bindParam(':id', $id);
+                $stmt->execute();
 
-                    $stmt = $conexao->prepare($instrutores);
-                    $stmt->execute();
+                while ($linha = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                   
+                     //Formulário em inheco
+                echo "<div class='form'>";
+                echo "<form method='post' action='gravar_aula.php'>";
+                echo "<input type='hidden' value='{$_SESSION['id_usuario']}' name='id'>";
+                echo "<input type='hidden' value='{$linha['id_usuario']}' name='id'>";
 
-                    while ($linha = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                        echo "<div class='card_instrutor'>";
-                        echo "<div class='card_topo'>";
-                        echo "<img src='{$linha['foto_usuario']}' class='foto_instrutor'>";
-                        echo "<div class='info_instrutor'>";
-                        echo "<strong>{$linha['nome_usuario']}</strong>";
-                        echo "<span>⭐ 4.9 (124)</span>";
-                        echo "<span class='credenciado'>🚗 Instrutor credenciado</span>";
-                        echo "</div>";
-                        echo "</div>";
-                        echo "<p>{$linha['descricao']}</p>";
-                        echo "<span>{$linha['cambio']}</span>";
-                        echo "<span>📍 {$linha['nome_municipio']} - {$linha['estado']}</span>";
-                        echo "<div class='card_rodape'>";
-                        echo "<strong>R$ {$linha['valor']},00/h</strong>";
-                        echo "<form action='perfil_instrutor.php' method='get'>";
-                        echo "<input type='hidden' value='{$linha['id_usuario']}' name='id'><button onclick='perfil_instrutor()'>Ver Perfil</button>";
-                        echo "</form>";
-                        echo "</div>";
-                        echo "<img src='img/hearth2.svg' class='favorito'>";
-                        echo "</div>";
-                    }
-                    ?>
-                </div>
+                echo "<label for='nome_instrutor'>Nome:</label>";
+                echo "<input type='text' name='nome_instrutor' value='{$linha['nome_usuario']}' disabled>";
                 
+                echo "<label for='dia_semana'>Dias da semana</label>";
+
+                echo "<div>";
+                echo "<input type='checkbox' name='dia_semana' value='Segunda-Feira'>";echo "<label>Segunda-Feira</label>";
+                echo "</div>";
+
+                echo "<div>";
+                echo "<input type='checkbox' name='dia_semana' value='Terça-Feira'>";echo "<label>Terça-Feira</label>";
+                echo "</div>";
+
+                echo "<div>";
+                echo "<input type='checkbox' name='dia_semana' value='Quarta-Feira'>";echo "<label>Quarta-Feira</label>";
+                echo "</div>";
+
+                echo "<div>";
+                echo "<input type='checkbox' name='dia_semana' value='Quinta-Feira'>";echo "<label>Quinta-Feira</label>";
+                echo "</div>";
+                
+                echo "<div>";
+                echo "<input type='checkbox' name='dia_semana' value='Sexta-Feira'>";echo "<label>Sexta-Feira</label>";
+                echo "</div>";
+
+                echo "<div>";
+                echo "<input type='checkbox' name='dia_semana' value='Sábado'>";echo "<label>Sábado</label>";
+                echo "</div>";
+
+                echo "<div>";
+                echo "<input type='checkbox' name='dia_semana' value='Domingo'>";echo "<label>Domingo</label>";
+                echo "</div>";
+
+                echo "<label for='valor'>Valor:</label>";
+                echo "<input type='text' name='valor' value='R$ {$linha['valor']},00/h' disabled>";
+
+                echo "<label for='horario'>Horário:</label>";
+                echo "<input type='time' name='horario'>";
+
+                echo "<button type='submit'>Agendar</button>";
+                
+                echo "</form>";
+                echo "</div>";
+                }
+
+                
+                ?>
+            </div>
         </div>
     </section>
 
@@ -526,12 +563,12 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
             window.location.href = "index.php";
         }
 
+        function dashboard() {
+            window.location.href = "dashboard.php";
+        }
+
         function perfil() {
             window.location.href = "instrutor.php";
-        }
-        
-         function perfil_instrutor() {
-            window.location.href = "perfil_instrutor.php";
         }
     </script>
 </body>

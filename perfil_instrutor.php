@@ -463,10 +463,13 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
                     echo "<span><strong>Região/Cidade: </strong>📍 {$linha['nome_municipio']} - {$linha['estado']}</span>";
                     echo "<span><strong>Disponibilidade: </strong>{$linha['dispo']}</span>";
                     echo "<div class='card_rodape'>";
-                    echo "<strong><strong>Valor: </strong>R$ {$linha['valor']},00/h</strong><button class='botao_perfil'>Contratar</button>";
+                    echo "<form action='agenda_aula.php' method='get'>";
+                    echo "<strong><strong>Valor: </strong>R$ {$linha['valor']},00/h</strong><input type='hidden' value='{$linha['id_usuario']}' name='id'><button class='botao_perfil' onclick='agendar()'>Contratar</button>";
+                    echo "</form>";
                     echo "</div>";
+
                     echo "<img src='img/hearth2.svg' class='favorito'>";
-                    
+
                     echo "</div>";
                 }
                 ?>
@@ -489,6 +492,10 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
         function perfil() {
             window.location.href = "instrutor.php";
+        }
+
+        function agendar() {
+            window.location.href = "agenda_aula.php";
         }
     </script>
 </body>
