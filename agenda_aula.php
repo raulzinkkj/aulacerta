@@ -407,6 +407,10 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
             margin-left: 5px;
         }
 
+        h3 {
+            padding: 5px 0;
+        }
+
     </style>
 </head>
 
@@ -507,48 +511,49 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
                    
                      //Formulário em inheco
                 echo "<div class='form'>";
-                echo "<form method='post' action='gravar_aula.php'>";
-                echo "<input type='hidden' value='{$_SESSION['id_usuario']}' name='id'>";
+                echo "<form method='post' action='api/gravar_aula.php'>";
+                echo "<input type='hidden' value='{$_SESSION['id_usuario']}' name='id_usuario'>";
                 echo "<input type='hidden' value='{$linha['id_usuario']}' name='id'>";
 
-                echo "<label for='nome_instrutor'>Nome:</label>";
-                echo "<input type='text' name='nome_instrutor' value='{$linha['nome_usuario']}' disabled>";
+                echo "<label for='nome_agendamento'>Instrutor:</label>";
+                echo "<h3>{$linha['nome_usuario']}</h3>";
+                echo "<input type='hidden' name='nome_agendamento' value='{$linha['nome_usuario']}'>";
                 
-                echo "<label for='dia_semana' style='margin-bottom:10px;'>Dias da semana:</label>";
+                echo "<label for='dia_semana_agendamento' style='margin-bottom:10px;'>Dias da semana:</label>";
 
                 echo "<div class='check'>";
-                echo "<input type='checkbox' name='dia_semana' value='Segunda-Feira'>";echo "<label>Segunda-Feira</label>";
+                echo "<input type='checkbox' name='dia_semana_agendamento[]' value='Segunda-Feira'>";echo "<label>Segunda-Feira</label>";
                 echo "</div>";
 
                 echo "<div class='check'>";
-                echo "<input type='checkbox' name='dia_semana' value='Terça-Feira'>";echo "<label>Terça-Feira</label>";
+                echo "<input type='checkbox' name='dia_semana_agendamento[]' value='Terça-Feira'>";echo "<label>Terça-Feira</label>";
                 echo "</div>";
 
                 echo "<div class='check'>";
-                echo "<input type='checkbox' name='dia_semana' value='Quarta-Feira'>";echo "<label>Quarta-Feira</label>";
+                echo "<input type='checkbox' name='dia_semana_agendamento[]' value='Quarta-Feira'>";echo "<label>Quarta-Feira</label>";
                 echo "</div>";
 
                 echo "<div class='check'>";
-                echo "<input type='checkbox' name='dia_semana' value='Quinta-Feira'>";echo "<label>Quinta-Feira</label>";
+                echo "<input type='checkbox' name='dia_semana_agendamento[]' value='Quinta-Feira'>";echo "<label>Quinta-Feira</label>";
                 echo "</div>";
                 
                 echo "<div class='check'>";
-                echo "<input type='checkbox' name='dia_semana' value='Sexta-Feira'>";echo "<label>Sexta-Feira</label>";
+                echo "<input type='checkbox' name='dia_semana_agendamento[]' value='Sexta-Feira'>";echo "<label>Sexta-Feira</label>";
                 echo "</div>";
 
                 echo "<div class='check'>";
-                echo "<input type='checkbox' name='dia_semana' value='Sábado'>";echo "<label>Sábado</label>";
+                echo "<input type='checkbox' name='dia_semana_agendamento[]' value='Sábado'>";echo "<label>Sábado</label>";
                 echo "</div>";
 
                 echo "<div class='check'>";
-                echo "<input type='checkbox' name='dia_semana' value='Domingo'>";echo "<label>Domingo</label>";
+                echo "<input type='checkbox' name='dia_semana_agendamento[]' value='Domingo'>";echo "<label>Domingo</label>";
                 echo "</div>";
 
-                echo "<label for='valor' style='margin-top:10px;'>Valor:</label>";
-                echo "<input type='text' name='valor' value='R$ {$linha['valor']},00/h' disabled>";
+                echo "<label for='valor_agendamento' style='margin-top:10px;'>Valor:</label>";
+                echo "<input type='text' name='valor_agendamento' value='R$ {$linha['valor']},00/h'>";
 
-                echo "<label for='horario'>Horário:</label>";
-                echo "<input type='time' name='horario'>";
+                echo "<label for='horario_agendamento'>Horário:</label>";
+                echo "<input type='time' name='horario_agendamento'>";
 
                 echo "<button type='submit'>Agendar</button>";
                 
