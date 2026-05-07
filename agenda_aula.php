@@ -398,6 +398,14 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
             margin-bottom: 14px;
         }
 
+        .check {
+            display: flex;
+            padding: 3px 0;
+        }
+
+        .check label {
+            margin-left: 5px;
+        }
 
     </style>
 </head>
@@ -506,37 +514,37 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
                 echo "<label for='nome_instrutor'>Nome:</label>";
                 echo "<input type='text' name='nome_instrutor' value='{$linha['nome_usuario']}' disabled>";
                 
-                echo "<label for='dia_semana'>Dias da semana</label>";
+                echo "<label for='dia_semana' style='margin-bottom:10px;'>Dias da semana:</label>";
 
-                echo "<div>";
+                echo "<div class='check'>";
                 echo "<input type='checkbox' name='dia_semana' value='Segunda-Feira'>";echo "<label>Segunda-Feira</label>";
                 echo "</div>";
 
-                echo "<div>";
+                echo "<div class='check'>";
                 echo "<input type='checkbox' name='dia_semana' value='Terça-Feira'>";echo "<label>Terça-Feira</label>";
                 echo "</div>";
 
-                echo "<div>";
+                echo "<div class='check'>";
                 echo "<input type='checkbox' name='dia_semana' value='Quarta-Feira'>";echo "<label>Quarta-Feira</label>";
                 echo "</div>";
 
-                echo "<div>";
+                echo "<div class='check'>";
                 echo "<input type='checkbox' name='dia_semana' value='Quinta-Feira'>";echo "<label>Quinta-Feira</label>";
                 echo "</div>";
                 
-                echo "<div>";
+                echo "<div class='check'>";
                 echo "<input type='checkbox' name='dia_semana' value='Sexta-Feira'>";echo "<label>Sexta-Feira</label>";
                 echo "</div>";
 
-                echo "<div>";
+                echo "<div class='check'>";
                 echo "<input type='checkbox' name='dia_semana' value='Sábado'>";echo "<label>Sábado</label>";
                 echo "</div>";
 
-                echo "<div>";
+                echo "<div class='check'>";
                 echo "<input type='checkbox' name='dia_semana' value='Domingo'>";echo "<label>Domingo</label>";
                 echo "</div>";
 
-                echo "<label for='valor'>Valor:</label>";
+                echo "<label for='valor' style='margin-top:10px;'>Valor:</label>";
                 echo "<input type='text' name='valor' value='R$ {$linha['valor']},00/h' disabled>";
 
                 echo "<label for='horario'>Horário:</label>";
