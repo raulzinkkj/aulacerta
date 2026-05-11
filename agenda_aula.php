@@ -555,8 +555,10 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
                 echo "<label for='horario_agendamento'>Horário:</label>";
                 echo "<input type='time' name='horario_agendamento'>";
-
-                echo "<button type='submit'>Agendar</button>";
+                 echo "<button type='submit'>Agendar</button>";
+                
+                
+                
                 
                 echo "</form>";
                 echo "</div>";
