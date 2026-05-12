@@ -32,6 +32,7 @@ $stmt_cidades->execute();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="loading.css">
     <title>Document</title>
     <style>
         * {
@@ -409,6 +410,14 @@ $stmt_cidades->execute();
 </head>
 
 <body>
+     <div id="load">
+        <div id="loading" class="newtons-cradle">
+            <div class="newtons-cradle__dot"></div>
+            <div class="newtons-cradle__dot"></div>
+            <div class="newtons-cradle__dot"></div>
+            <div class="newtons-cradle__dot"></div>
+        </div>
+    </div>
     <section class="menu">
 
         <header>
@@ -537,6 +546,18 @@ $stmt_cidades->execute();
                         cidadeSelect.add(option);
                     });
                 });
+        });
+
+         window.addEventListener("load", () => {
+
+            const loading = document.getElementById("load");
+            const site = document.getElementById("site");
+
+
+            setTimeout(() => {
+                loading.style.display = "none";
+                site.style.display = "grid";
+            }, 2500);
         });
     </script>
 </body>
