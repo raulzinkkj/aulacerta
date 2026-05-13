@@ -21,7 +21,18 @@ if ($user && password_verify($senha_usuario, $user['senha_usuario'])) {
     $_SESSION['cargo_usuario'] = $user['cargo_usuario'];
 
     if ($user['cargo_usuario'] == 'Instrutor') {
-        header("Location: ../instrutor.php");
+        $sqlDetalhes = "SELECT * FROM detalhes WHERE id_usuario = ?";
+        $stmtDetalhes = $conexao->prepare($sqlDetalhes);
+        $stmtDetalhes->execute([$user['id_usuario']]);
+
+        $detalhes = $stmtDetalhes->fetch();
+
+        if ($detalhes) {
+            header("Location: aulas.php");
+            exit;
+        } else {
+            header("Location: ../instrutor.php");
+        }
     } elseif ($user['cargo_usuario'] == 'Aluno') {
         header("Location: ../dashboard.php");
     } else {

@@ -22,7 +22,6 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="loading.css">
     <title>Document</title>
     <style>
         * {
@@ -254,13 +253,6 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
             font-size: 0.9rem;
         }
 
-        .cards_instrutores {
-            height: calc(100vh - 380px);
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 30px;
-        }
-
         .card_instrutor {
             flex: 1;
             display: flex;
@@ -356,22 +348,73 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
             cursor: pointer;
         }
 
-        
+        form {
+            width: 420px;
+            padding: 40px 36px;
+            border-radius: 15px;
+            background: white;
+            border: 1px solid #e0e4ea;
+            box-shadow: 0 2px 16px rgba(0, 0, 0, 0.07);
+            justify-content: center;
+            display: flex;
+            flex-direction: column;
+
+        }
+
+        .form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80vh;
+        }
+
+        input[type="checkbox"] {
+            width: auto;
+            height: 15px;
+
+        }
+
+        input[type="text"],
+        input[type="time"] {
+            width: 100%;
+            padding: 10px 12px 10px 34px;
+            border: 1px solid #dcdcdc;
+            border-radius: 5px;
+            font-size: 14px;
+            color: #333;
+            margin-top: 5px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #2563EB;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 14px;
+        }
+
+        .check {
+            display: flex;
+            padding: 3px 0;
+        }
+
+        .check label {
+            margin-left: 5px;
+        }
+
+        h3 {
+            padding: 5px 0;
+        }
     </style>
 </head>
 
 <body>
-    <div id="load">
-        <div id="loading" class="newtons-cradle">
-            <div class="newtons-cradle__dot"></div>
-            <div class="newtons-cradle__dot"></div>
-            <div class="newtons-cradle__dot"></div>
-            <div class="newtons-cradle__dot"></div>
-        </div>
-    </div>
-
-    <section class="menu" id="site">
-
+    <section class="menu">
 
         <header>
             <div class="barras">
@@ -396,7 +439,7 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
                 <h1>AulaCerta</h1>
             </div>
             <div class="topicos">
-                <div class="topico destaque">
+                <div class="topico destaque" onclick="dashboard()">
                     <img src="img/house.svg" alt="">
                     <h2>Dashboard</h2>
                 </div>
@@ -404,7 +447,7 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
                     <img src="img/search.svg" alt="">
                     <h2>Buscar instrutores</h2>
                 </div>
-                <div class="topico cursor" onclick="minhas_aulas()">
+                <div class="topico">
                     <img src="img/calendar.svg" alt="">
                     <h2>Minhas Aulas</h2>
                 </div>
@@ -429,104 +472,51 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
             </div>
         </div>
 
-        <div class="bemvindo">
-            <div class="bemvindo2">
-                <h1>Bem-vindo,
-                    <?php
-                    $nomeCompleto = $_SESSION['nome_usuario'];
 
-                    $partes = explode(" ", $nomeCompleto);
-
-                    $primeiroNome = $partes[0];
-
-                    echo $primeiroNome;
-                    ?>
-                    🖐️</h1>
-                <p>Encontre o instrutor ideal para suas aulas particulares.</p>
-            </div>
-            <button class="botao" onclick="pesquisar()">Buscar Instrutores</button>
-        </div>
-
-        <div class="resumo">
-            <div class="card_resumo">
-                <div class="circulo user">
-                    <img src="img/user2.svg" alt="">
-                </div>
-                <div>
-                    <span>Aulas Agendadas</span>
-                    <strong>2</strong>
-                    <a href="">Ver detalhes →</a>
-                </div>
-            </div>
-            <div class="card_resumo">
-                <div class="circulo star">
-                    <img src="img/star.svg" alt="">
-                </div>
-                <div>
-                    <span>Instrutores Favoritos</span>
-                    <strong>5</strong>
-                    <a href="">Ver favoritos →</a>
-                </div>
-            </div>
-            <div class="card_resumo">
-                <div class="circulo message">
-                    <img src="img/message2.svg" alt="">
-                </div>
-                <div>
-                    <span>Mensagens</span>
-                    <strong>2 não lidas</strong>
-                    <a href="">Ver mensagens →</a>
-                </div>
-            </div>
-        </div>
 
         <div class="instrutores">
             <div class="instrutores_header">
-                <h2>Instrutores Recomendados</h2>
-                <a href="">Ver todos</a>
+
             </div>
 
             <div class="cards_instrutores">
                 <?php
-                include "conexao/conexao.php";
 
-                $instrutores = "SELECT u.id_usuario, u.nome_usuario, u.foto_usuario, u.cargo_usuario, d.descricao, d.cambio, d.estado, d.cidade, d.valor, d.dispo, m.nome_municipio 
-                                    FROM usuario AS u 
-                                    INNER JOIN detalhes AS d ON u.id_usuario = d.id_usuario 
-                                    INNER JOIN municipios AS m ON m.id_municipio = d.cidade
-                                    WHERE u.cargo_usuario = 'Instrutor' 
-                                    LIMIT 8";
+                //session_start();
+                include 'conexao/conexao.php';
 
+                // Busca as aulas onde o ID do usuário logado é o aluno
+                $sql = "SELECT a.*, u.nome_usuario as nome_instrutor 
+                        FROM agendamento a
+                        INNER JOIN usuario u ON a.id_instrutor = u.id_usuario
+                        WHERE a.id_usuario = :meu_id";
 
-
-                $stmt = $conexao->prepare($instrutores);
+                $stmt = $conexao->prepare($sql);
+                $stmt->bindValue(":meu_id", $_SESSION['id_usuario']);
                 $stmt->execute();
-
-                while ($linha = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                    echo "<div class='card_instrutor'>";
-                    echo "<div class='card_topo'>";
-                    echo "<img src='{$linha['foto_usuario']}' class='foto_instrutor'>";
-                    echo "<div class='info_instrutor'>";
-                    echo "<strong>{$linha['nome_usuario']}</strong>";
-                    echo "<span>⭐ 4.9 (124)</span>";
-                    echo "<span class='credenciado'>🚗 Instrutor credenciado</span>";
-                    echo "</div>";
-                    echo "</div>";
-                    echo "<p>{$linha['descricao']}</p>";
-                    echo "<span>{$linha['cambio']}</span>";
-                    echo "<span>📍 {$linha['nome_municipio']} - {$linha['estado']}</span>";
-                    echo "<div class='card_rodape'>";
-                    echo "<strong>R$ {$linha['valor']},00/h</strong>";
-                    echo "<form action='perfil_instrutor.php' method='get'>";
-                    echo "<input type='hidden' value='{$linha['id_usuario']}' name='id'><button onclick='perfil_instrutor()'>Ver Perfil</button>";
-                    echo "</form>";
-                    echo "</div>";
-                    echo "<img src='img/hearth2.svg' class='favorito'>";
-                    echo "</div>";
-                }
+                $minhas_aulas = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 ?>
-            </div>
 
+                <!-- No seu HTML, dentro da div de conteúdo -->
+                <div class="instrutores">
+                    <h2>Minhas Aulas Agendadas</h2>
+                    <div class="cards_instrutores">
+                        <?php if (count($minhas_aulas) > 0): ?>
+                            <?php foreach ($minhas_aulas as $aula): ?>
+                                <div class="card_resumo" style="margin-bottom: 10px; flex-direction: column; align-items: flex-start;">
+                                    <strong>Professor: <?php echo $aula['nome_instrutor']; ?></strong>
+                                    <span>Dias: <?php echo $aula['dia_semana_agendamento']; ?></span>
+                                    <span>Horário: <?php echo $aula['horario_agendamento']; ?></span>
+                                    <span>Investimento: <?php echo $aula['valor_agendamento']; ?></span>
+                                </div>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <p>Você ainda não possui aulas agendadas.</p>
+                        <?php endif; ?>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </section>
 
@@ -539,29 +529,13 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
             window.location.href = "index.php";
         }
 
+        function dashboard() {
+            window.location.href = "dashboard.php";
+        }
+
         function perfil() {
             window.location.href = "instrutor.php";
         }
-
-        function perfil_instrutor() {
-            window.location.href = "perfil_instrutor.php";
-        }
-
-        function minhas_aulas() {
-            window.location.href = "minhas_aulas.php";
-        }
-
-        window.addEventListener("load", () => {
-
-            const loading = document.getElementById("load");
-            const site = document.getElementById("site");
-
-
-            setTimeout(() => {
-                loading.style.display = "none";
-                site.style.display = "grid";
-            }, 2500);
-        });
     </script>
 </body>
 
